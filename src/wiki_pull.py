@@ -18,4 +18,4 @@ html_string = wiki_pull.text
 # newer versions of pandas requires file-like object to read html tables
 html_file = io.StringIO(html_string)
 
-print(pd.read_html(html_file))
+print(pd.read_html(html_file)[0])
