@@ -1,0 +1,12 @@
+# wikipedia needed for company selection and sector info
+import requests
+
+wiki_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+# header to get past 403 error
+# header adds meta data to the request (not bot traffic)
+# non-browser like strings work for wikipedia
+headers = {"User-Agent": "plsletmegetthisdata"}
+
+wiki_pull = requests.get(wiki_url, headers=headers)
+
+print(wiki_pull.status_code)

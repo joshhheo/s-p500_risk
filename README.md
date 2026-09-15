@@ -1,0 +1,1 @@
+Analyze financial risk of S&P 500 companies using leverage ratio.

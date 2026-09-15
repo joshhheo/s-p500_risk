@@ -17,3 +17,5 @@ six==1.17.0
 SQLAlchemy==2.0.53
 typing_extensions==4.16.0
 urllib3==2.7.0
+# add subdependant packages after testing api
+edgartools==5.58.0
