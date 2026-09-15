@@ -5,17 +5,27 @@ import pandas as pd
 # to convert html string to file-like object
 import io
 
-wiki_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-# header to get past 403 error
-# header adds meta data to the request (not bot traffic)
-# non-browser like strings work for wikipedia
-headers = {"User-Agent": "plsgivemedata"}
+# returns wikipedia dataframe with S&P 500 company ticker, name, and sector
+def get_wiki_dataframe():
+    wiki_url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+    # header to get past 403 error
+    # header adds meta data to the request (not bot traffic)
+    # non-browser like strings work for wikipedia
+    headers = {"User-Agent": "plsgivemedata"}
 
-wiki_pull = requests.get(wiki_url, headers=headers)
+    wiki_pull = requests.get(wiki_url, headers=headers)
 
-html_string = wiki_pull.text
+    html_string = wiki_pull.text
 
-# newer versions of pandas requires file-like object to read html tables
-html_file = io.StringIO(html_string)
+    # newer versions of pandas requires file-like object to read html tables
+    html_file = io.StringIO(html_string)
 
-print(pd.read_html(html_file)[0])
+    # pd.read_html returns a list of dataframes
+    wiki_dataframe = pd.read_html(html_file)[0]
+
+    # double brackets for dataframe, single brackets for series
+    filtered_dataframe = wiki_dataframe[["Symbol", "Security", "GICS Sector"]]
+
+    return filtered_dataframe
+
+# no if __name__ == "__main__" block because module requires no further testing
