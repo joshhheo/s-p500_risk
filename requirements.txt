@@ -1,0 +1,19 @@
+certifi==2026.7.22
+charset-normalizer==3.5.1
+idna==3.19
+lxml==6.1.3
+numpy==2.5.3
+# creates data frame and python instructions from response
+pandas==3.0.5
+# sends sql queries to database and returns raw results
+psycopg2-binary==2.9.13
+python-dateutil==2.9.0.post0
+# loads database connection string from .env file
+python-dotenv==1.2.3
+# sends http requests to API/website and parses response
+requests==2.34.2
+six==1.17.0
+# translates python instructions into sql queries and manages database connection
+SQLAlchemy==2.0.53
+typing_extensions==4.16.0
+urllib3==2.7.0
