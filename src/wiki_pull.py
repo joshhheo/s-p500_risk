@@ -32,6 +32,4 @@ def get_wiki_dataframe():
 
     return filtered_dataframe
 
-dashconverttest = get_wiki_dataframe()[get_wiki_dataframe()["Symbol"].str.contains("-")]
-print(dashconverttest)
 # no if __name__ == "__main__" block because module requires no further testing
