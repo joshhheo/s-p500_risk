@@ -26,6 +26,12 @@ def get_wiki_dataframe():
     # double brackets for dataframe, single brackets for series
     filtered_dataframe = wiki_dataframe[["Symbol", "Security", "GICS Sector"]]
 
+    # replaces periods in ticker to dashes
+    # regex=False treat special characters as literal strings
+    filtered_dataframe["Symbol"] = filtered_dataframe["Symbol"].str.replace(".", "-", regex=False)
+
     return filtered_dataframe
 
+dashconverttest = get_wiki_dataframe()[get_wiki_dataframe()["Symbol"].str.contains("-")]
+print(dashconverttest)
 # no if __name__ == "__main__" block because module requires no further testing

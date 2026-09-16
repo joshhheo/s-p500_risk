@@ -12,6 +12,3 @@ set_identity(user_agent)
 
 assets = Company("AAPL").get_financials().get_total_assets()
 liabilities = Company("AAPL").get_financials().get_total_liabilities()
-
-print (f"Total Assets: {assets}")
-print (f"Total Liabilities: {liabilities}")
