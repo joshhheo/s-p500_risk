@@ -10,4 +10,8 @@ user_agent = os.getenv("SEC_user_agent")
 
 set_identity(user_agent)
 
-print(Company("AAPL").get_financials().balance_sheet())
+assets = Company("AAPL").get_financials().get_total_assets()
+liabilities = Company("AAPL").get_financials().get_total_liabilities()
+
+print (f"Total Assets: {assets}")
+print (f"Total Liabilities: {liabilities}")
