@@ -20,11 +20,13 @@ for ticker in tickers[:10]:
     company = Company(ticker)
     financial_data = company.get_financials()
     assets = financial_data.get_total_assets()
-    liabilities = financial_data.get_total_liabilities()
+    stockholders_equity = financial_data.get_stockholders_equity()
+    liabilities = assets - stockholders_equity
 
     print(f"Ticker: {ticker}")
     print(f"Assets: {assets}")
     print(f"Liabilities: {liabilities}")
+
     # SEC EDGAR rates limit at 10 requests per second
     # give margin for request time variability
     time.sleep(0.2)
