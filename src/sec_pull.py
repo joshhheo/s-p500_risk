@@ -28,7 +28,7 @@ for ticker in tickers:
 
     if financial_data is None:
         cannot_calculate += 1
-        time.sleep(0.2)
+        time.sleep(0.1)
         # skips to next iteration of loop
         continue
 
@@ -44,8 +44,8 @@ for ticker in tickers:
         cannot_calculate += 1
 
     # SEC EDGAR rates limit at 10 requests per second
-    # give margin for request time variability
-    time.sleep(0.2)
+    # next request only executes after prior request gets response
+    time.sleep(0.1)
 
 end_time = time.time() - start_time
 
