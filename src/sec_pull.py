@@ -28,7 +28,6 @@ for ticker in tickers:
 
     if financial_data is None:
         cannot_calculate += 1
-        time.sleep(0.1)
         # skips to next iteration of loop
         continue
 
@@ -45,13 +44,19 @@ for ticker in tickers:
 
     # SEC EDGAR rates limit at 10 requests per second
     # next request only executes after prior request gets response
-    time.sleep(0.1)
+    # bottle neck of run time is SEC server response anyways
 
 end_time = time.time() - start_time
 
 # 362 companies record total assets and total liabilities
 # 128 companies record either total assets or total liabilities, but records stockholders equity
 # 13 companies do not record assets, liabilties, equity totals enough to directly calculate with tool
+
+# 650 second runtime with no client side caching by edgartools and with sleep time (0.2 seconds)
+# 430 second run time with client side caching and no sleep time
+# per request cache irrelevant (only lasts 30 seconds)
+# permanant cache (match ticker to CIK) saves 50 seconds
+# 9 requests/sec limit already set by edgartools
 
 print(perfect_calculate)
 print(cannot_calculate)
