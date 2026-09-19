@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from edgar import set_identity, Company
 from wiki_pull import get_wiki_dataframe
-import time
 
 # writes environment variables to os environment
 load_dotenv()
