@@ -1,0 +1,24 @@
+import os
+from dotenv import load_dotenv
+from edgar import set_identity, Company
+from wiki_pull import get_wiki_dataframe
+
+load_dotenv()
+
+user_agent = os.getenv("SEC_user_agent")
+
+set_identity(user_agent)
+
+ticker = 'ABBV'
+
+company = Company(ticker)
+
+financial_data = company.get_financials()
+
+# .xb returns XBRL object with all raw data from api
+# searches api for exact liabilities tag
+result = financial_data.xb.query().by_concept("Liabilities", exact=True).to_dataframe()
+
+print(result)
+# creates lists of column names from data frame
+print(result.columns.tolist())

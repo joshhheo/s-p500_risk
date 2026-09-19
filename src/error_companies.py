@@ -35,8 +35,16 @@ for ticker in tickers:
     else:
         status = "cannot calculate"
 
-    results.append({"ticker": ticker, "status": status})
+    results.append(
+    {
+    "ticker": ticker,
+    "status": status,
+    "assets_missing": assets is None,
+    "liabilities_missing": liabilities is None,
+    "equity_missing": stockholders_equity is None,
+    }
+    )
 
 company_status_df = pd.DataFrame(results)
 company_status_df = company_status_df.sort_values("status")
-company_status_df.to_csv("data/raw/leverage_status.csv", index=False)
+company_status_df.to_csv("src/leverage_status.csv", index=False)
