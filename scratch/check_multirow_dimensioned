@@ -2,13 +2,11 @@
 import sys
 sys.path.append("src")
 
-import os
-from dotenv import load_dotenv
-from edgar import set_identity, Company
+from edgar import Company
 import pandas as pd
+from setup_sec import setup_sec_identity
 
-load_dotenv()
-set_identity(os.getenv("SEC_user_agent"))
+setup_sec_identity()
 
 df = pd.read_csv("data/raw/leverage_status.csv")
 candidates = df[df["liabilities_missing"] == True]["ticker"]

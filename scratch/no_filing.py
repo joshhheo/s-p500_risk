@@ -1,12 +1,10 @@
 import sys
 sys.path.append("src")
 
-import os
-from dotenv import load_dotenv
-from edgar import set_identity, Company
+from edgar import Company
+from setup_sec import setup_sec_identity
 
-load_dotenv()
-set_identity(os.getenv("SEC_user_agent"))
+setup_sec_identity()
 
 ticker = "HONA"
 

@@ -1,13 +1,4 @@
 import pandas as pd
-from edgar import Company, set_identity
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-user_agent = os.getenv("SEC_user_agent")
-
-set_identity(user_agent)
 
 df = pd.read_csv("data/raw/leverage_status.csv")
 

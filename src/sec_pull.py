@@ -1,15 +1,10 @@
-from dotenv import load_dotenv
-import os
-from edgar import set_identity, Company
+from edgar import Company
 from wiki_pull import get_wiki_dataframe
 import pandas as pd
 import time
+from setup_sec import setup_sec_identity
 
-# writes environment variables to os environment
-load_dotenv()
-# accesses variable from os environment
-user_agent = os.getenv("SEC_user_agent")
-set_identity(user_agent)
+setup_sec_identity()
 
 df = get_wiki_dataframe()
 tickers = df["Symbol"]
