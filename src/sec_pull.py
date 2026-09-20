@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from edgar import set_identity, Company
 from wiki_pull import get_wiki_dataframe
+import time
 
 # writes environment variables to os environment
 load_dotenv()
@@ -46,10 +47,6 @@ for ticker in tickers:
     # bottle neck of run time is SEC server response anyways
 
 end_time = time.time() - start_time
-
-# 362 companies record total assets and total liabilities
-# 128 companies record either total assets or total liabilities, but records stockholders equity
-# 13 companies do not record assets, liabilties, equity totals enough to directly calculate with tool
 
 # 650 second runtime with no client side caching by edgartools and with sleep time (0.2 seconds)
 # 430 second run time with client side caching and no sleep time

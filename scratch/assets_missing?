@@ -1,0 +1,24 @@
+import pandas as pd
+from edgar import Company, set_identity
+import os
+from dotenv import load_dotenv
+
+# writes environment variables to os environment
+load_dotenv()
+
+# accesses variable from os environment
+user_agent = os.getenv("SEC_user_agent")
+
+set_identity(user_agent)
+
+df = pd.read_csv("src/leverage_status.csv")
+cannot_calculate = df[df["status"] == "cannot calculate"]["ticker"]
+
+for ticker in ["CAH", "MCK"]:
+    company = Company(ticker)
+    financial_data = company.get_financials()
+    result = financial_data.xb.query().by_concept("us-gaap:Liabilities", exact=True).to_dataframe()
+    print(ticker)
+    print(result[["fiscal_year", "numeric_value", "is_dimensioned"]].to_string(index=False))
+    print()
+

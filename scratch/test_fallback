@@ -10,7 +10,7 @@ user_agent = os.getenv("SEC_user_agent")
 set_identity(user_agent)
 
 # error: companies missing liabilities is returning empty data frame even with direct XBRL query
-ticker = 'ABBV'
+ticker = 'CAH'
 
 company = Company(ticker)
 
@@ -21,11 +21,10 @@ financial_data = company.get_financials()
 result = financial_data.xb.query().by_concept("us-gaap:Liabilities", exact=True).to_dataframe()
 
 # boolean in dataframe filters info
-result = result[result["is_dimensioned"] == False]
 
 # pandas infers type of value (not string by default)
 result = result[result["fiscal_year"] == 2025]
 
-print(result[["fiscal_year", "numeric_value", "statement_name"]].to_string(index=False))
+print(result[["fiscal_year", "numeric_value", "statement_name", "is_dimensioned"]].to_string(index=False))
 
 print(financial_data.get_total_liabilities())

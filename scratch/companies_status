@@ -1,0 +1,13 @@
+# for leverage ratio
+
+# 128 companies with get totals
+# 27 companies with liabilties only with concept
+# 113 companies require stockholder equity estimate
+
+
+
+
+
+# companies with no total liabilties and liabilities concept
+
+['ABT', 'AZO', 'ETR', 'FDX', 'HRL', 'HPQ', 'MAR', 'ORLY', 'SBAC', 'TGT', 'ABBV', 'ACN', 'AMD', 'AES', 'LNT', 'AMZN', 'AWK', 'AMGN', 'ADI', 'APA', 'ADM', 'T', 'ATO', 'ADSK', 'AVY', 'BKR', 'BDX', 'BBY', 'TECH', 'BSX', 'CDNS', 'CCL', 'CDW', 'CNP', 'CHTR', 'CTAS', 'CPAY', 'CTVA', 'DHR', 'DECK', 'DAL', 'DVN', 'DOV', 'DUK', 'ETN', 'EMR', 'EOG', 'EL', 'EVRG', 'ES', 'EXPE', 'EXPD', 'FFIV', 'FAST', 'FDXF', 'FTV', 'FOXA', 'FOX', 'GRMN', 'GD', 'GPC', 'GILD', 'GDDY','HCA', 'HPE', 'HON', 'ITW', 'IFF', 'IP', 'IRM', 'KMB', 'LLY', 'LYB', 'MRSH', 'MCD', 'MCHP','MNST', 'MSI', 'NWSA', 'NWS', 'NKE', 'NDSN', 'NXPI', 'OXY', 'OMC', 'OKE', 'ORCL', 'PCG', 'PNW', 'PPL', 'PEG', 'DGX', 'RSG', 'ROK', 'ROST', 'SHW', 'LUV', 'SWK', 'SYY', 'TMUS', 'TRGP', 'TMO', 'TJX', 'TSN', 'UAL', 'UPS', 'UHS', 'VLO', 'VLTO', 'VZ', 'GWW', 'WMT', 'WMB']
