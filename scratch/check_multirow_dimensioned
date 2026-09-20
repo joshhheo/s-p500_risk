@@ -1,0 +1,35 @@
+
+import sys
+sys.path.append("src")
+
+import os
+from dotenv import load_dotenv
+from edgar import set_identity, Company
+import pandas as pd
+
+load_dotenv()
+set_identity(os.getenv("SEC_user_agent"))
+
+df = pd.read_csv("data/raw/leverage_status.csv")
+candidates = df[df["liabilities_missing"] == True]["ticker"]
+
+multirow_dimensioned_only = []
+
+for ticker in candidates:
+    company = Company(ticker)
+    financial_data = company.get_financials()
+    if financial_data is None:
+        continue
+
+    result = financial_data.xb.query().by_concept("us-gaap:Liabilities", exact=True).to_dataframe()
+
+    if len(result) > 1 and (result["is_dimensioned"] == True).all():
+        multirow_dimensioned_only.append(ticker)
+
+print(len(multirow_dimensioned_only))
+print(multirow_dimensioned_only)
+
+if multirow_dimensioned_only:
+    print("use ticker to manually test sec_pull fallback")
+else:
+    print("no company with multirow dataset and only dimensioned")
