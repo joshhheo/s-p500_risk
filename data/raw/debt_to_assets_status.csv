@@ -66,6 +66,7 @@ BIIB,True,False,False,False,direct,True
 BLK,True,False,False,False,direct,True
 BX,True,False,False,False,direct,True
 XYZ,True,False,False,False,direct,True
+BE,True,False,False,False,direct,True
 BNY,True,False,False,False,direct,True
 BA,True,False,False,False,direct,True
 BKNG,True,False,False,True,direct,True
@@ -75,7 +76,6 @@ AVGO,True,False,False,False,direct,True
 BR,True,False,False,False,direct,True
 BRO,True,False,False,False,concept_search,True
 BF-B,True,False,False,False,direct,True
-BLDR,True,False,False,False,direct,True
 BG,True,False,False,False,concept_search,True
 BXP,True,False,False,False,direct,True
 CHRW,True,False,False,True,direct,True
@@ -178,6 +178,7 @@ ESS,True,False,False,False,direct,True
 EL,True,False,False,False,derived,True
 EG,True,False,False,False,direct,True
 EVRG,True,False,False,False,derived,True
+P,True,False,False,False,direct,True
 ES,True,False,False,False,derived,True
 EXC,True,False,False,False,direct,True
 EXE,True,False,False,False,direct,True
@@ -246,6 +247,7 @@ IBM,True,False,False,False,direct,True
 IEX,True,False,False,False,direct,True
 IDXX,True,False,False,False,direct,True
 ITW,True,False,False,False,derived,True
+ILMN,True,False,False,False,derived,True
 INCY,True,False,False,False,direct,True
 IR,True,False,False,False,direct,True
 PODD,True,False,False,False,direct,True
@@ -316,7 +318,6 @@ MU,True,False,False,False,direct,True
 MSFT,True,False,False,False,direct,True
 MAA,True,False,False,False,direct,True
 MRNA,True,False,False,False,direct,True
-TAP,True,False,False,False,direct,True
 MDLZ,True,False,False,False,direct,True
 MPWR,True,False,False,False,direct,True
 MNST,True,False,False,False,derived,True
@@ -443,7 +444,6 @@ TXT,True,False,False,False,direct,True
 TMO,True,False,False,False,derived,True
 TJX,True,False,False,False,derived,True
 TKO,True,False,False,False,direct,True
-TTD,True,False,False,False,direct,True
 TSCO,True,False,False,False,direct,True
 TT,True,False,False,False,direct,True
 TDG,True,False,False,True,direct,True

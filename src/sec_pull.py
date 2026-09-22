@@ -71,8 +71,8 @@ for ticker in tickers:
 elapsed = time.time() - start_time
 
 status_df = pd.DataFrame(results)
-status_df.to_csv("data/raw/leverage_status.csv", index=False)
+status_df.to_csv("data/raw/debt_to_assets_status.csv", index=False)
 
 print(status_df["liabilities_method"].value_counts())
-print(f"can_calculate_ratio counts:\n{status_df['can_calculate_ratio'].value_counts()}")
+print(f"can_calculate_ratio counts: {status_df['can_calculate_ratio'].value_counts()}")
 print(f"total time: {elapsed:.1f} seconds")

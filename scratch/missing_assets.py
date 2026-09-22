@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("data/raw/leverage_status.csv")
+df = pd.read_csv("data/raw/debt_to_assets_status.csv")
 
 assets_missing = df[df["assets_missing"] == True]
 no_filing = df[df["has_filing"] == False]
