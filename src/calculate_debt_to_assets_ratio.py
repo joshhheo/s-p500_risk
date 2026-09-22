@@ -10,7 +10,9 @@ df = pd.read_csv("data/raw/debt_to_assets_status.csv")
 
 results = []
 
-for row in df.iterrows():
+# index manditory for .iterrows
+# _ when unused manditory value
+for _, row in df.iterrows():
     ticker = row["ticker"]
     method = row["liabilities_method"]
     can_calculate = row["can_calculate_ratio"]
