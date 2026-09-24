@@ -13,3 +13,6 @@ with engine.connect() as connection:
     result = connection.execute(text("SELECT 1"))
     # fetchone returns first row
     print(result.fetchone())
+
+# normalization for multi year info (multiple tables)
+# primary key is ticker
