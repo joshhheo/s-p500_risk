@@ -18,11 +18,19 @@ for _, row in df.iterrows():
     can_calculate = row["can_calculate_ratio"]
 
     if can_calculate == False:
-        results.append({"ticker": ticker, "leverage_ratio": None})
+        results.append({
+            "ticker": ticker,
+            "debt_to_assets_ratio": None,
+            "fiscal_period_end": None
+        })
         continue
 
     company = Company(ticker)
     financial_data = company.get_financials()
+
+    # no seperate file to reduce runtime
+    fiscal_period_end = financial_data.xb.period_of_report
+
     assets = financial_data.get_total_assets()
 
     if method == "direct":
@@ -42,7 +50,11 @@ for _, row in df.iterrows():
 
     debt_to_assets_ratio = liabilities / assets
 
-    results.append({"ticker": ticker, "debt_to_assets_ratio": debt_to_assets_ratio})
+    results.append({
+        "ticker": ticker,
+        "debt_to_assets_ratio": debt_to_assets_ratio,
+        "fiscal_period_end": fiscal_period_end
+    })
 
 debt_to_assets_df = pd.DataFrame(results)
 debt_to_assets_df.to_csv("data/processed/debt_to_assets_ratios.csv", index=False)
