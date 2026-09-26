@@ -17,12 +17,14 @@ CREATE TABLE companies (
 );
 """
 
+# composite key allows duplicate tickers
 create_financials_table = """
 CREATE TABLE financials (
     ticker TEXT REFERENCES companies(ticker),
     fiscal_period_end DATE,
     debt_to_assets_ratio NUMERIC,
     liabilities_method TEXT
+    PRIMARY KEY (ticker, fiscal_period_end)
 );
 """
 
