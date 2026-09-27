@@ -8,9 +8,9 @@ connection_string = os.getenv("db_connection_string")
 engine = create_engine(connection_string)
 
 # store queries as string
-# primary key to avoid repeating constants
+# primary/refrence key to avoid repeating constants
 create_companies_table = """
-CREATE TABLE companies (
+CREATE TABLE IF NOT companies (
     ticker TEXT PRIMARY KEY,
     company_name TEXT,
     sector TEXT
@@ -19,11 +19,11 @@ CREATE TABLE companies (
 
 # composite key allows duplicate tickers
 create_financials_table = """
-CREATE TABLE financials (
+CREATE TABLE IF NOT financials (
     ticker TEXT REFERENCES companies(ticker),
     fiscal_period_end DATE,
     debt_to_assets_ratio NUMERIC,
-    liabilities_method TEXT
+    liabilities_method TEXT,
     PRIMARY KEY (ticker, fiscal_period_end)
 );
 """
