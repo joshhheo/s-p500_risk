@@ -10,7 +10,7 @@ engine = create_engine(connection_string)
 # store queries as string
 # primary/refrence key to avoid repeating constants
 create_companies_table = """
-CREATE TABLE IF NOT companies (
+CREATE TABLE IF NOT EXISTS companies (
     ticker TEXT PRIMARY KEY,
     company_name TEXT,
     sector TEXT
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT companies (
 
 # composite key allows duplicate tickers
 create_financials_table = """
-CREATE TABLE IF NOT financials (
+CREATE TABLE IF NOT EXISTS financials (
     ticker TEXT REFERENCES companies(ticker),
     fiscal_period_end DATE,
     debt_to_assets_ratio NUMERIC,

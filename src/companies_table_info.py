@@ -14,7 +14,7 @@ wiki_df = wiki_df.rename(columns={
 })
 
 # inserts new row if not exist, or updates existing row
-# parameterization to avoid apostrophes breaking
+# parameterization to avoid apostrophes breaking query
 upsert_query = """
 INSERT INTO companies (ticker, company_name, sector)
 VALUES (:ticker, :company_name, :sector)
