@@ -1,4 +1,4 @@
-CREATE VIEW sector_leverage_rankings AS
+CREATE OR REPLACE VIEW sector_leverage_rankings AS
 SELECT
     c.ticker,
     c.company_name,

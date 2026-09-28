@@ -8,20 +8,27 @@ from read_sql import refresh_view
 import time
 
 def main():
+    startapi = time.time()
     sec_pull()
+    endapi = time.time()
+    elapsedapi = endapi - startapi
+    print(f"api+wiki time(one csv):{elapsedapi}")
+    startcsv = time.time()
     calculate_debt_to_assets()
     merge_csv_info()
-
+    endcsv = time.time()
+    elapsedcsv = endcsv - startcsv
+    print(f"csv+calculate time:{elapsedcsv}")
+    startsql = time.time()
     create_tables()
     companies_table_info()
     financials_table_info()
     refresh_view()
+    endsql = time.time()
+    elapsedsql = endsql - startsql
+    print(f"sql time:{elapsedsql}")
 
 # only runs when ran directly
 if __name__ == "__main__":
-    start = time.time()
     main()
-    end = time.time()
-    elapsed = end - start
     print("finished")
-    print(elapsed)

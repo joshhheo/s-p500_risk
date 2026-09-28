@@ -35,4 +35,3 @@ def create_tables():
         connection.execute(text(create_financials_table))
         connection.commit()
     
-    print("finished")
