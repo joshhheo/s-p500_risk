@@ -5,7 +5,7 @@ from setup_sec import setup_sec_identity
 
 setup_sec_identity()
 
-company = Company("APA")
+company = Company("MRSH")
 financial_data = company.get_financials()
 
 assets = financial_data.get_total_assets()

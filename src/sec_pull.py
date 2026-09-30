@@ -9,9 +9,7 @@ def sec_pull():
 
     df = get_wiki_dataframe()
     tickers = df["Symbol"]
-
-    start_time = time.time()
-
+    
     results = []
 
     for ticker in tickers:
@@ -69,8 +67,6 @@ def sec_pull():
             "can_calculate_ratio": can_calculate,
         })
 
-    elapsed = time.time() - start_time
-
     status_df = pd.DataFrame(results)
     status_df.to_csv("data/raw/debt_to_assets_status.csv", index=False)
-
+    print(elapsed)
