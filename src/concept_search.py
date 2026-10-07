@@ -7,6 +7,7 @@ def get_value_via_concept(financial_data, concept_name):
 
     if len(result) > 1:
         undimensioned = result[result["is_dimensioned"] == False]
+        # df does not return boolean by default
         if not undimensioned.empty:
             result = undimensioned
         result = result.sort_values("fiscal_year", ascending=False)
