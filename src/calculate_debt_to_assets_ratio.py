@@ -1,6 +1,6 @@
 # assets/liabilities
 
-from setup_sec import setup_sec_identity
+from quick_setup.setup_sec import setup_sec_identity
 import pandas as pd
 from edgar import Company
 

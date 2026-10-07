@@ -2,7 +2,7 @@ from edgar import Company
 from wiki_pull import get_wiki_dataframe
 import pandas as pd
 import time
-from setup_sec import setup_sec_identity
+from quick_setup.setup_sec import setup_sec_identity
 
 def sec_pull():
     setup_sec_identity()
