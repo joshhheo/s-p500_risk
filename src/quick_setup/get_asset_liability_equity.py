@@ -33,7 +33,9 @@ def get_asset_liability_equity(financial_data):
     if equity is None:
         parent = get_value(financial_data, "us-gaap:StockholdersEquity")
         noncontrolling = get_value(financial_data, "us-gaap:MinorityInterest")
-        if parent is not None and noncontrolling is not None:
-            equity = parent + noncontrolling
+        if parent is not None:
+            equity = parent
+            if noncontrolling is not None:
+                equity += noncontrolling
 
     return {"assets": assets, "liabilities": liabilities, "equity": equity}
