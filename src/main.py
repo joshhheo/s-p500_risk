@@ -1,0 +1,36 @@
+import time
+
+from company_status import create_company_status_csv
+from calculate_debt_to_asset_ratio import calculate_debt_to_assets
+from database.create_tables import create_tables
+from database.companies_table_info import companies_table_info
+from database.financials_table_info import financials_table_info
+
+def main():
+    total_start = time.time()
+
+    start = time.time()
+    create_company_status_csv()
+    print(f"Company status CSV(api requests): {time.time() - start:.2f} seconds")
+
+    start = time.time()
+    calculate_debt_to_assets()
+    print(f"Ratios CSV: {time.time() - start:.2f} seconds")
+
+    start = time.time()
+    create_tables()
+    print(f"Create tables: {time.time() - start:.2f} seconds")
+
+    start = time.time()
+    companies_table_info()
+    print(f"Load companies: {time.time() - start:.2f} seconds")
+
+    start = time.time()
+    financials_table_info()
+    print(f"Load financials: {time.time() - start:.2f} seconds")
+
+    print(f"Total runtime: {time.time() - total_start:.2f} seconds")
+
+
+if __name__ == "__main__":
+    main()
