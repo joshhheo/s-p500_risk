@@ -20,6 +20,7 @@ def create_company_status_csv():
 
         results.append({
             "ticker": ticker,
+            "company_name": company["Security"],
             "sector": company["GICS Sector"],
             "has_assets": assets,
             "has_liabilities": liabilities,
