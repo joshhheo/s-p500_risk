@@ -13,4 +13,5 @@ SELECT
     END AS sector_rank,
     f.fiscal_period_end
 FROM companies c
-LEFT JOIN financials f ON c.ticker = f.ticker;
+LEFT JOIN financials f ON c.ticker = f.ticker
+WHERE c.is_current_constituent = TRUE;

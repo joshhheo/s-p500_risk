@@ -14,7 +14,8 @@ def create_tables():
     CREATE TABLE IF NOT EXISTS companies (
         ticker TEXT PRIMARY KEY,
         company_name TEXT,
-        sector TEXT
+        sector TEXT,
+        is_current_constituent BOOLEAN NOT NULL DEFAULT FALSE
     );
     """
 
@@ -31,6 +32,11 @@ def create_tables():
     # with statement to close connection automatically
     with engine.connect() as connection:
         connection.execute(text(create_companies_table))
+        connection.execute(text("""
+            ALTER TABLE companies
+            ADD COLUMN IF NOT EXISTS is_current_constituent
+            BOOLEAN NOT NULL DEFAULT FALSE;
+     """))
         connection.execute(text(create_financials_table))
         connection.commit()
 

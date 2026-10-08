@@ -11,15 +11,19 @@ def companies_table_info():
     companies = pd.read_csv("data/raw/company_status.csv")
 
     upsert_query = """
-    INSERT INTO companies (ticker, company_name, sector)
-    VALUES (:ticker, :company_name, :sector)
+    INSERT INTO companies (ticker, company_name, sector, is_current_constituent)
+    VALUES (:ticker, :company_name, :sector, TRUE)
     ON CONFLICT (ticker)
     DO UPDATE SET
         company_name = EXCLUDED.company_name,
-        sector = EXCLUDED.sector;
+        sector = EXCLUDED.sector,
+        is_current_constituent = EXCLUDED.is_current_constituent;
     """
 
     with engine.begin() as connection:
+        connection.execute(
+            text("UPDATE companies SET is_current_constituent = FALSE")
+        )
         for _, row in companies.iterrows():
             connection.execute(text(upsert_query), {
                 "ticker": row["ticker"],
