@@ -9,7 +9,8 @@ def create_company_status_csv():
     companies = get_wiki_dataframe()
     results = []
 
-    for ticker in companies["Symbol"]:
+    for _, company in companies.iterrows():
+        ticker = company["Symbol"]
         financial_data = get_financial_data(ticker)
         values = get_asset_liability_equity(financial_data)
 
@@ -19,6 +20,7 @@ def create_company_status_csv():
 
         results.append({
             "ticker": ticker,
+            "sector": company["GICS Sector"],
             "has_assets": assets,
             "has_liabilities": liabilities,
             "has_equity": equity,

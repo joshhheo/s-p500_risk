@@ -24,7 +24,6 @@ def create_tables():
         ticker TEXT REFERENCES companies(ticker),
         fiscal_period_end DATE,
         debt_to_assets_ratio NUMERIC,
-        liabilities_method TEXT,
         PRIMARY KEY (ticker, fiscal_period_end)
     );
     """
@@ -34,4 +33,7 @@ def create_tables():
         connection.execute(text(create_companies_table))
         connection.execute(text(create_financials_table))
         connection.commit()
+
+if __name__ == "__main__":
+    create_tables()
     
