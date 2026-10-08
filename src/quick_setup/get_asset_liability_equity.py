@@ -3,35 +3,37 @@ def get_value(financial_data, concept_name):
     if financial_data is None:
         return None
 
-    rows = financial_data.xb.query().by_concept(concept_name, exact=True)
-
-    df = rows.to_dataframe()
-
-    df = df[df["is_dimensioned"] == False]
-
-    df = df.sort_values("period_instant", ascending=False)
-
+    df = (financial_data.xb.query().by_concept(concept_name, exact=True).to_dataframe())
     if df.empty:
         return None
 
-    return df.iloc[0]["numeric_value"]
+    dimensioned = df[df["is_dimensioned"] == False]
+    if dimensioned.empty:
+        return None
+    
+    sorted_dimentioned = dimensioned.sort_values("period_instant", ascending=False)
+    latest_dimentioned = sorted_dimentioned.iloc[0]
+    values = latest_dimentioned["numeric_value"]
+    
+    return values
 
 
-# gets the 3 values for one company
 def get_asset_liability_equity(financial_data):
-    equity = get_value(
-        financial_data,
-        "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
-    )
+    assets = get_value(financial_data, "us-gaap:Assets")
 
+    liabilities = get_value(financial_data, "us-gaap:Liabilities")
+    if liabilities is None:
+        current = get_value(financial_data, "us-gaap:LiabilitiesCurrent")
+        noncurrent = get_value(financial_data, "us-gaap:LiabilitiesNoncurrent")
+        if current is not None and noncurrent is not None:
+            liabilities = current + noncurrent
+
+    equity_and_nci = "us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+    equity = get_value(financial_data, equity_and_nci)
     if equity is None:
-        equity = get_value(
-            financial_data,
-            "us-gaap:StockholdersEquity"
-        )
+        parent = get_value(financial_data, "us-gaap:StockholdersEquity")
+        noncontrolling = get_value(financial_data, "us-gaap:MinorityInterest")
+        if parent is not None and noncontrolling is not None:
+            equity = parent + noncontrolling
 
-    return {
-        "assets": get_value(financial_data, "us-gaap:Assets"),
-        "liabilities": get_value(financial_data, "us-gaap:Liabilities"),
-        "equity": equity
-    }
+    return {"assets": assets, "liabilities": liabilities, "equity": equity}
