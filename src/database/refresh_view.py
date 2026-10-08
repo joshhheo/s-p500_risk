@@ -2,8 +2,6 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
-
-
 def refresh_view():
 
     load_dotenv()
@@ -12,6 +10,5 @@ def refresh_view():
 
     with open("sql/sector_leverage.sql") as f:
         view_query = f.read()
-    with engine.connect() as connection:
+    with engine.begin() as connection:
         connection.execute(text(view_query))
-        connection.commit()

@@ -5,6 +5,7 @@ from calculate_debt_to_asset_ratio import calculate_debt_to_assets
 from database.create_tables import create_tables
 from database.companies_table_info import companies_table_info
 from database.financials_table_info import financials_table_info
+from database.refresh_view import refresh_view
 
 def main():
     total_start = time.time()
@@ -28,6 +29,10 @@ def main():
     start = time.time()
     financials_table_info()
     print(f"Load financials: {time.time() - start:.2f} seconds")
+
+    start = time.time()
+    refresh_view()
+    print(f"Refresh view: {time.time() - start:.2f} seconds")
 
     print(f"Total runtime: {time.time() - total_start:.2f} seconds")
 
