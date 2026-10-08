@@ -10,8 +10,9 @@ def create_company_status_csv():
     results = []
 
     for _, company in companies.iterrows():
+        company_id = company["CIK"]
         ticker = company["Symbol"]
-        financial_data = get_financial_data(ticker)
+        financial_data = get_financial_data(company_id)
         values = get_asset_liability_equity(financial_data)
 
         assets = values["assets"]
@@ -19,7 +20,8 @@ def create_company_status_csv():
         equity = values["equity"]
 
         results.append({
-            "ticker": ticker,
+            "ticker": company["Symbol"],
+            "cik": int(company_id),
             "company_name": company["Security"],
             "sector": company["GICS Sector"],
             "has_assets": assets,

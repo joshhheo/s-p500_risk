@@ -24,7 +24,7 @@ def get_wiki_dataframe():
     wiki_dataframe = pd.read_html(html_file)[0]
 
     # double brackets for dataframe, single brackets for series
-    filtered_dataframe = wiki_dataframe[["Symbol", "Security", "GICS Sector"]]
+    filtered_dataframe = wiki_dataframe[["Symbol", "Security", "GICS Sector", "CIK"]]
 
     # replaces periods in ticker to dashes
     # regex=False treat special characters as literal strings

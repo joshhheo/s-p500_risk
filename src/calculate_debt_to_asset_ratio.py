@@ -8,7 +8,7 @@ def calculate_debt_to_assets():
     results = []
 
     for _, row in df.iterrows():
-        financial_data = get_financial_data(row["ticker"])
+        financial_data = get_financial_data(row["cik"])
         fiscal_period_end = None
         if financial_data is not None:
             fiscal_period_end = financial_data.xb.period_of_report
