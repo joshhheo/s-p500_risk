@@ -3,7 +3,7 @@ import sys
 sys.path.append("src")
 
 from edgar import Company
-from quick_setup.setup_sec import setup_sec_identity
+from quick_setup.setup_sec_identity import setup_sec_identity
 
 setup_sec_identity()
 

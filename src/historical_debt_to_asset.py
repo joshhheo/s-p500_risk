@@ -8,7 +8,7 @@ from quick_setup.get_asset_liability_equity import get_asset_liability_equity
 def create_historical_ratios():
     setup_sec_identity()
 
-    companies = companies = pd.read_csv("data/raw/company_status.csv")
+    companies = companies = pd.read_csv("data/company_status.csv")
 
     results = []
 
@@ -79,7 +79,7 @@ def create_historical_ratios():
                 break
 
     pd.DataFrame(results).to_csv(
-        "data/processed/historical_debt_to_assets_ratios.csv",
+        "data/historical_debt_to_assets_ratios.csv",
         index=False,
     )
 

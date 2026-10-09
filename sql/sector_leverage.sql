@@ -1,4 +1,12 @@
 CREATE OR REPLACE VIEW sector_leverage_rankings AS
+WITH latest_financials AS (
+    SELECT DISTINCT ON (ticker)
+        ticker,
+        fiscal_period_end,
+        debt_to_assets_ratio
+    FROM financials
+    ORDER BY ticker, fiscal_period_end DESC
+)
 SELECT
     c.ticker,
     c.company_name,
@@ -8,10 +16,10 @@ SELECT
         WHEN f.debt_to_assets_ratio IS NOT NULL THEN
             RANK() OVER (
                 PARTITION BY c.sector
-                ORDER BY f.debt_to_assets_ratio DESC
+                ORDER BY f.debt_to_assets_ratio DESC NULLS LAST
             )
     END AS sector_rank,
     f.fiscal_period_end
 FROM companies c
-LEFT JOIN financials f ON c.ticker = f.ticker
+LEFT JOIN latest_financials f ON c.ticker = f.ticker
 WHERE c.is_current_constituent = TRUE;

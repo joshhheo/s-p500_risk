@@ -12,11 +12,11 @@ def main():
 
     start = time.time()
     create_company_status_csv()
-    print(f"Company status CSV(api requests): {time.time() - start:.2f} seconds")
+    print(f"Company status CSV: {time.time() - start:.2f} seconds")
 
     start = time.time()
     create_historical_ratios()
-    print(f"Ratios CSV: {time.time() - start:.2f} seconds")
+    print(f"Ratios CSV(api requests): {time.time() - start:.2f} seconds")
 
     start = time.time()
     create_tables()

@@ -8,7 +8,7 @@ def companies_table_info():
     load_dotenv()
     engine = create_engine(os.getenv("db_connection_string"))
 
-    companies = pd.read_csv("data/raw/company_status.csv")
+    companies = pd.read_csv("data/company_status.csv")
 
     upsert_query = """
     INSERT INTO companies (ticker, company_name, sector, is_current_constituent)
