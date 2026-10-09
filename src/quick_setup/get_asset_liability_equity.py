@@ -1,4 +1,3 @@
-# fiscal period paramter TEST: multiyear data
 def get_value(financial_data, concept_name, fiscal_period_end = None):
     
     if financial_data is None:
@@ -10,8 +9,8 @@ def get_value(financial_data, concept_name, fiscal_period_end = None):
     
     dimensioned = df[df["is_dimensioned"] == False]
 
-    # TEST: multiyear data
     if fiscal_period_end is not None:
+        # convert to string and slice to YYYY-MM-DD format
         dimensioned = dimensioned[
         dimensioned["period_instant"].astype(str).str[:10]
         == fiscal_period_end
@@ -26,7 +25,6 @@ def get_value(financial_data, concept_name, fiscal_period_end = None):
     
     return values
 
-# fiscal period paramter TEST: multiyear data
 def get_asset_liability_equity(financial_data, fiscal_period_end = None):
     assets = get_value(financial_data, "us-gaap:Assets", fiscal_period_end)
 

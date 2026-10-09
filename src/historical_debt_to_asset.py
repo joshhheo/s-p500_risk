@@ -8,16 +8,14 @@ from quick_setup.get_asset_liability_equity import get_asset_liability_equity
 def create_historical_ratios():
     setup_sec_identity()
 
-    companies = {
-        "AAPL": 320193,
-        "AMD": 2488,
-        "MSFT": 789019,
-    }
+    companies = companies = pd.read_csv("data/raw/company_status.csv")
 
     results = []
 
     # amendments can be non-financial
-    for ticker, cik in companies.items():
+    for _, company in companies.iterrows():
+        ticker = company["ticker"]
+        cik = int(company["cik"])
         filings = Company(cik).get_filings(
             form="10-K",
             amendments=False,
@@ -32,7 +30,7 @@ def create_historical_ratios():
             # date format is YYYY-MM-DD
             period_end = str(filing.period_of_report)[:10]
 
-            # Don't calculate the same annual period twice.
+            # Don't calculate the same annual period twice
             if period_end in periods:
                 continue
 
@@ -77,13 +75,11 @@ def create_historical_ratios():
                 "debt_to_assets_ratio": ratio,
             })
 
-            print(ticker, period_end, ratio)
-
             if len(periods) == 5:
                 break
 
     pd.DataFrame(results).to_csv(
-        "scratch/historical_debt_to_assets_test.csv",
+        "data/processed/historical_debt_to_assets_ratios.csv",
         index=False,
     )
 
