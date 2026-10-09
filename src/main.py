@@ -1,7 +1,7 @@
 import time
 
 from company_status import create_company_status_csv
-from calculate_debt_to_asset_ratio import calculate_debt_to_assets
+from historical_debt_to_asset import create_historical_ratios
 from database.create_tables import create_tables
 from database.companies_table_info import companies_table_info
 from database.financials_table_info import financials_table_info
@@ -15,7 +15,7 @@ def main():
     print(f"Company status CSV(api requests): {time.time() - start:.2f} seconds")
 
     start = time.time()
-    calculate_debt_to_assets()
+    create_historical_ratios()
     print(f"Ratios CSV: {time.time() - start:.2f} seconds")
 
     start = time.time()

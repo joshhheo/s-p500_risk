@@ -8,7 +8,7 @@ def financials_table_info():
     load_dotenv()
     engine = create_engine(os.getenv("db_connection_string"))
 
-    df = pd.read_csv("data/processed/debt_to_assets_ratios.csv")
+    df = pd.read_csv("data/processed/historical_debt_to_assets_ratios.csv")
 
     # postgres does not allow null values in primary key
     df = df.dropna(subset=["fiscal_period_end"])

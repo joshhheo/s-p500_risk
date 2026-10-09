@@ -1,44 +1,20 @@
 import pandas as pd
 from wiki_pull import get_wiki_dataframe
-from quick_setup.get_financials import get_financial_data
-from quick_setup.get_asset_liability_equity import get_asset_liability_equity
-from quick_setup.setup_sec_identity import setup_sec_identity
 
 def create_company_status_csv():
-    setup_sec_identity()
     companies = get_wiki_dataframe()
     results = []
 
     for _, company in companies.iterrows():
-        company_id = company["CIK"]
-        ticker = company["Symbol"]
-        financial_data = get_financial_data(company_id)
-        values = get_asset_liability_equity(financial_data)
-
-        assets = values["assets"]
-        liabilities = values["liabilities"]
-        equity = values["equity"]
-
         results.append({
             "ticker": company["Symbol"],
-            "cik": int(company_id),
+            "cik": int(company["CIK"]),
             "company_name": company["Security"],
             "sector": company["GICS Sector"],
-            "has_assets": assets,
-            "has_liabilities": liabilities,
-            "has_equity": equity,
-            "can_calculate_debt_to_assets": (
-                assets is not None
-                and (liabilities is not None or equity is not None)
-            )
-            or (
-            liabilities is not None
-            and (assets is not None or equity is not None)
-            )
         })
 
     df = pd.DataFrame(results)
-    df.to_csv("data/raw/company_status.csv", index=False)
+    df.to_csv("data/company_status.csv", index=False)
 
 
 if __name__ == "__main__":
