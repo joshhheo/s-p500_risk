@@ -2,13 +2,12 @@ import pandas as pd
 from edgar import Company
 
 from quick_setup.setup_sec_identity import setup_sec_identity
-from quick_setup.get_asset_liability_equity import get_asset_liability_equity
+from calculations.debt_to_asset_ratio import calculate_debt_to_assets
 
-
-def create_historical_ratios():
+def generate_ratios():
     setup_sec_identity()
 
-    companies = companies = pd.read_csv("data/company_status.csv")
+    companies = pd.read_csv("data/company_status.csv")
 
     results = []
 
@@ -39,35 +38,11 @@ def create_historical_ratios():
             # obj parses the filings into object
             annual_report = filing.obj()
             financial_data = None
+            
             if annual_report is not None:
                 financial_data = annual_report.financials
 
-            values = get_asset_liability_equity(financial_data, period_end)
-
-            assets = values["assets"]
-            liabilities = values["liabilities"]
-            equity = values["equity"]
-
-            if (
-                liabilities is None
-                and assets is not None
-                and equity is not None
-            ):
-                liabilities = assets - equity
-
-            if (
-                assets is None
-                and liabilities is not None
-                and equity is not None
-            ):
-                assets = liabilities + equity
-
-            ratio = None
-            if (
-                assets is not None
-                and liabilities is not None
-            ):
-                ratio = liabilities / assets
+            ratio = calculate_debt_to_assets(financial_data, period_end)
 
             results.append({
                 "ticker": ticker,
@@ -85,4 +60,4 @@ def create_historical_ratios():
 
 
 if __name__ == "__main__":
-    create_historical_ratios()
+    generate_ratios()
