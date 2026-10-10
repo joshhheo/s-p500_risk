@@ -1,28 +1,16 @@
-from quick_setup.get_asset_liability_equity import get_asset_liability_equity
+from quick_setup.get_assets_liabilities import get_assets_liabilities
+
 
 def calculate_debt_to_assets(financial_data, fiscal_period_end):
-    values = get_asset_liability_equity(financial_data, fiscal_period_end)
+    values = get_assets_liabilities(financial_data, fiscal_period_end)
 
     assets = values["assets"]
     liabilities = values["liabilities"]
-    equity = values["equity"]
 
-    if (
-        liabilities is None
-        and assets is not None
-        and equity is not None
-    ):
-        liabilities = assets - equity
+    if assets is None or liabilities is None:
+        return None
 
-    if (
-        assets is None
-        and liabilities is not None
-        and equity is not None
-    ):
-        assets = liabilities + equity
+    if assets == 0:
+        return None
 
-    ratio = None
-    if assets is not None and liabilities is not None:
-        ratio = liabilities / assets
-
-    return ratio
+    return liabilities / assets
