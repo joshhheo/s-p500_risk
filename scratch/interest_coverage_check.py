@@ -92,3 +92,12 @@ if period_start is not None:
     )
 
     print(values)
+from quick_setup.get_assets_liabilities import get_value
+
+for concept in [
+    "us-gaap:Assets",
+    "us-gaap:Liabilities",
+    "us-gaap:LiabilitiesCurrent",
+    "us-gaap:LiabilitiesNoncurrent",
+]:
+    print(concept, get_value(financial_data, concept, period_end))

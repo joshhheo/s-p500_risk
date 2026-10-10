@@ -3,18 +3,25 @@ from edgar import Company
 
 from quick_setup.setup_sec_identity import setup_sec_identity
 from calculations.debt_to_asset_ratio import calculate_debt_to_assets
+from calculations.interest_coverage_ratio import calculate_interest_coverage
+
 
 def generate_ratios():
     setup_sec_identity()
 
     companies = pd.read_csv("data/company_status.csv")
 
+    # Temporary filter for the pilot.
+    companies = companies[
+        companies["ticker"].isin(["MSFT", "AAPL", "AMD", "WMT"])
+    ]
+
     results = []
 
-    # amendments can be non-financial
     for _, company in companies.iterrows():
         ticker = company["ticker"]
         cik = int(company["cik"])
+
         filings = Company(cik).get_filings(
             form="10-K",
             amendments=False,
@@ -26,35 +33,58 @@ def generate_ratios():
             if not filing.period_of_report:
                 continue
 
-            # date format is YYYY-MM-DD
             period_end = str(filing.period_of_report)[:10]
 
-            # Don't calculate the same annual period twice
             if period_end in periods:
                 continue
 
             periods.append(period_end)
 
-            # obj parses the filings into object
             annual_report = filing.obj()
             financial_data = None
-            
+
             if annual_report is not None:
                 financial_data = annual_report.financials
 
-            ratio = calculate_debt_to_assets(financial_data, period_end)
+            period_start = None
+
+            if financial_data is not None:
+                for period in financial_data.xb.reporting_periods:
+                    if period["type"] != "duration":
+                        continue
+
+                    if period["period_type"] != "Annual":
+                        continue
+
+                    if period["end_date"] != period_end:
+                        continue
+
+                    period_start = period["start_date"]
+                    break
+
+            debt_ratio = calculate_debt_to_assets(
+                financial_data, period_end
+            )
+
+            interest_coverage = None
+
+            if period_start is not None:
+                interest_coverage = calculate_interest_coverage(
+                    financial_data, period_start, period_end
+                )
 
             results.append({
                 "ticker": ticker,
                 "fiscal_period_end": period_end,
-                "debt_to_assets_ratio": ratio,
+                "debt_to_assets_ratio": debt_ratio,
+                "interest_coverage_ratio": interest_coverage,
             })
 
             if len(periods) == 5:
                 break
 
     pd.DataFrame(results).to_csv(
-        "data/historical_debt_to_assets_ratios.csv",
+        "data/financial_ratios_pilot.csv",
         index=False,
     )
 
