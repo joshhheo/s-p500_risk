@@ -54,6 +54,30 @@ def get_operating_income_interest_expense(
             period_end,
         )
 
+        if operating_interest is None:
+            operating_interest_income = get_annual_value(
+            financial_data,
+            "us-gaap:InterestIncomeOperating",
+            period_start,
+            period_end,
+        )
+
+        net_operating_interest = get_annual_value(
+            financial_data,
+            "us-gaap:InterestIncomeExpenseNet",
+            period_start,
+            period_end,
+        )
+
+        if (
+            operating_interest_income is not None
+            and net_operating_interest is not None
+        ):
+            operating_interest = (
+                operating_interest_income - net_operating_interest
+            )
+    
+
         nonoperating_interest = get_annual_value(
             financial_data,
             "us-gaap:InterestExpenseNonoperating",
