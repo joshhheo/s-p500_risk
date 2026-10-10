@@ -8,7 +8,7 @@ def refresh_view():
     connection_string = os.getenv("db_connection_string")
     engine = create_engine(connection_string)
 
-    with open("sql/sector_leverage.sql") as f:
+    with open("src/database/sql/sector_leverage.sql") as f:
         view_query = f.read()
     with engine.begin() as connection:
         connection.execute(text(view_query))

@@ -1,15 +1,19 @@
 # unchecked test
 import sys
 
+
 sys.path.append("src")
 
+from quick_setup.get_operating_income_interest_expense import (
+    get_operating_income_interest_expense,
+)
 from edgar import Company
 from quick_setup.setup_sec_identity import setup_sec_identity
 
 
 setup_sec_identity()
 
-ticker = "MSFT"
+ticker = "WMT"
 
 filing = Company(ticker).get_filings(
     form="10-K",
@@ -61,3 +65,30 @@ print(
     .sort_values(["concept", "period_start"])
     .to_string(index=False)
 )
+
+period_start = None
+
+for period in financial_data.xb.reporting_periods:
+    if period["type"] != "duration":
+        continue
+
+    if period["period_type"] != "Annual":
+        continue
+
+    if period["end_date"] != period_end:
+        continue
+
+    period_start = period["start_date"]
+    break
+
+print("Annual start:", period_start)
+print("Annual end:", period_end)
+
+if period_start is not None:
+    values = get_operating_income_interest_expense(
+        financial_data,
+        period_start,
+        period_end,
+    )
+
+    print(values)
